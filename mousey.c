@@ -9,14 +9,16 @@
 #include <linux/types.h>
 #include <linux/proc_fs.h>
 #include <linux/fcntl.h>
+#include <linux/poll.h>
 //#include <asm/system.h>
 #include <asm/uaccess.h>
+#include <linux/miscdevice.h>
 
 #define MOUSEY_BASE   0×300
 
-int MOUSEY_MAJOR = 60;
+const int MOUSEY_MAJOR = 60;
 
-int MOUSEY_MINOR = ?????;
+#define MOUSEY_MINOR 240
 
 MODULE_LICENSE("GPL");
 
@@ -28,6 +30,7 @@ ssize_t mousey_read(struct file *filp, char *buf, size_t count, loff_t *f_pos);
 ssize_t mousey_write(struct file *filp, char *buf, size_t count, loff_t *f_pos);
 void mousey_exit(void);
 int mousey_init(void);
+static unsigned int mousey_poll(struct file *file, poll_table *wait);
 
 struct file_operations mousey_fops = {
 	read:   mousey_read,
@@ -37,11 +40,9 @@ struct file_operations mousey_fops = {
 	poll:   mousey_poll
 };
 
-
-
 static struct miscdevice mousey = {
 	MOUSEY_MINOR, 
-	“ourmouse”,
+	"ourmouse",
 	&mousey_fops
 };
 
@@ -79,6 +80,7 @@ int mousey_init(void){
 	memory_exit();
 	return result;
 	*/
+	misc_register(&mousey);
 	return 0;
 }
 
@@ -150,6 +152,7 @@ ssize_t mousey_read(struct file *filp, char *buffer, size_t count, loff_t *f_pos
 		return -EFAULT;
 	if(put_user(-10, buffer+2))
 		return -EFAULT;
+	return 0;
 }
 
 ssize_t mousey_write(struct file *filp, char *buf, size_t count, loff_t *f_pos){
