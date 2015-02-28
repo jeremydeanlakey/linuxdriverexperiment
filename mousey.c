@@ -1,3 +1,7 @@
+// reference material: 
+// http://www.compsoc.man.ac.uk/~moz/kernelnewbies/documents/kdoc/mousedrivers/driver.html
+// http://www.tldp.org/LDP/lkmpg/2.6/html/x44.html
+// http://www.freesoftwaremagazine.com/articles/drivers_linux
 
 #include <linux/init.h>
 //#include <linux/config.h>
