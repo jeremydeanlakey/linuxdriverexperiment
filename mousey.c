@@ -85,8 +85,8 @@ int mousey_init(void){
 }
 
 void mousey_exit(void){
+    misc_deregister(&mousey);
 /*
-    misc_deregister(&our_mouse);
 
     free_region(OURMOUSE_BASE, 3);
 
