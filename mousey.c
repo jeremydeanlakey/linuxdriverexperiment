@@ -20,7 +20,7 @@
 
 #define MOUSEY_BASE   0×300
 
-#define MOUSEY_MINOR 240
+#define MOUSEY_MINOR MISC_DYNAMIC_MINOR
 
 MODULE_LICENSE("GPL");  //  a lie to suppress warnings, will change later
 
