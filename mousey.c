@@ -33,17 +33,17 @@ int mousey_init(void);
 static unsigned int mousey_poll(struct file *file, poll_table *wait);
 
 struct file_operations mousey_fops = {
-	read:   mousey_read,
-	write:  mousey_write,
-	open:   mousey_open,
-	release:mousey_release,
-	poll:   mousey_poll
+	.read=mousey_read,
+	.write=mousey_write,
+	.open=mousey_open,
+	.release=mousey_release,
+	.poll=mousey_poll
 };
 
 static struct miscdevice mousey = {
-	minor:MOUSEY_MINOR, 
-	name:"mousey",
-	fops:&mousey_fops
+	.minor=MOUSEY_MINOR, 
+	.name="mousey",
+	.fops=&mousey_fops
 };
 
 module_init(mousey_init);
